@@ -1,26 +1,9 @@
 // ============================================
-// NEXORA — ADMINISTRATION CENTRALE
-// Connexion à Appwrite et gestion des clients
-// ============================================
+ // NEXORA — ADMINISTRATION CENTRALE
+ // Connexion à Appwrite et gestion des données
+ // ============================================
 
 "use strict";
-/* NEXORA — Protection de l'administration */
-(async function verifierConnexionAdmin() {
-    try {
-        const clientAuth = new Appwrite.Client()
-            .setEndpoint("https://fra.cloud.appwrite.io/v1")
-            .setProject("6acea3d5003acc6b81be");
-
-        const compte = new Appwrite.Account(clientAuth);
-        const utilisateur = await compte.get();
-
-        if (!utilisateur || !utilisateur.$id) {
-            window.location.replace("./login.html");
-        }
-    } catch (erreur) {
-        window.location.replace("./login.html");
-    }
-})();
 
 // ============================================
 // 1. CONFIGURATION APPWRITE
@@ -44,39 +27,64 @@ const client = new Appwrite.Client()
     .setEndpoint(APPWRITE_ENDPOINT)
     .setProject(APPWRITE_PROJECT_ID);
 
+const account = new Appwrite.Account(client);
 const tablesDB = new Appwrite.TablesDB(client);
 
-console.log("NEXORA Administration : interface chargée.");
-console.log("NEXORA — Vérification Appwrite");
-
-console.log("SDK Appwrite disponible :", typeof Appwrite !== "undefined");
-
-console.log("Identifiant du projet :", APPWRITE_PROJECT_ID);
-
-console.log("Identifiant de la base :", APPWRITE_DATABASE_ID);
+// Masquer le document pendant la vérification
+document.documentElement.style.visibility = "hidden";
 
 // ============================================
-// 3. CHARGEMENT DU TABLEAU DE BORD
+// 3. VÉRIFICATION DE LA SESSION
 // ============================================
 
-document.addEventListener("DOMContentLoaded", () => {
+async function verifierConnexionAdmin() {
+    try {
+        const utilisateur = await account.get();
+
+        if (!utilisateur || !utilisateur.$id) {
+            throw new Error("Session utilisateur absente.");
+        }
+
+        document.documentElement.style.visibility = "visible";
+
+        console.log("NEXORA : session Appwrite vérifiée.");
+        return true;
+
+    } catch (erreur) {
+        console.warn("NEXORA : connexion requise.");
+
+        window.location.replace("./login.html");
+        return false;
+    }
+}
+
+// ============================================
+// 4. CHARGEMENT DU TABLEAU DE BORD
+// ============================================
+
+document.addEventListener("DOMContentLoaded", async () => {
+
+    // Vérifier la session AVANT de charger les données
+    const autorise = await verifierConnexionAdmin();
+
+    if (!autorise) {
+        return;
+    }
+
+    console.log("NEXORA Administration : interface chargée.");
 
     // ----------------------------------------
-    // COMPTEUR DES CLIENTS
+    // COMPTEUR ET LISTE DES CLIENTS
     // ----------------------------------------
 
-    tablesDB.listRows({
-        databaseId: APPWRITE_DATABASE_ID,
-        tableId: APPWRITE_CLIENTS_TABLE_ID
-    })
-    .then((response) => {
+    try {
+        const response = await tablesDB.listRows({
+            databaseId: APPWRITE_DATABASE_ID,
+            tableId: APPWRITE_CLIENTS_TABLE_ID
+        });
 
-     console.log("Réponse Appwrite complète :", response);
-console.log("Nombre total :", response.total);
-console.log("Lignes reçues :", response.rows);
-        console.log("Réponse complète Appwrite :", response);
+        console.log("NEXORA — Nombre de clients :", response.total);
 
-        // Mise à jour du compteur
         const totalClients =
             document.getElementById("Total-clients");
 
@@ -84,7 +92,6 @@ console.log("Lignes reçues :", response.rows);
             totalClients.textContent = response.total;
         }
 
-        // Affichage des clients dans le tableau
         const listeClients =
             document.getElementById("liste-clients");
 
@@ -107,8 +114,7 @@ console.log("Lignes reçues :", response.rows);
 
                     ["name", "email", "phone", "status"]
                         .forEach((champ) => {
-                            const cellule =
-                                document.createElement("td");
+                            const cellule = document.createElement("td");
 
                             cellule.textContent =
                                 client[champ] ?? "—";
@@ -121,34 +127,36 @@ console.log("Lignes reçues :", response.rows);
             }
         }
 
-        console.log(
-            "NEXORA — Données clients :",
-            response.rows
-        );
+    } catch (erreur) {
+        console.error("NEXORA — Erreur Clients :", erreur);
 
-    })
-    .catch((error) => {
-        console.error(
-            "NEXORA — Erreur de lecture Clients :",
-            error
-        );
-        alert("Erreur Clients : " + (error.message || error));
-    });
+        const listeClients =
+            document.getElementById("liste-clients");
+
+        if (listeClients) {
+            listeClients.replaceChildren();
+
+            const ligne = document.createElement("tr");
+            const cellule = document.createElement("td");
+
+            cellule.colSpan = 4;
+            cellule.textContent =
+                "Impossible de charger les clients.";
+
+            ligne.appendChild(cellule);
+            listeClients.appendChild(ligne);
+        }
+    }
 
     // ----------------------------------------
     // COMPTEUR DES PARTENAIRES
     // ----------------------------------------
 
-    tablesDB.listRows({
-        databaseId: APPWRITE_DATABASE_ID,
-        tableId: APPWRITE_PARTNERS_TABLE_ID
-    })
-    .then((response) => {
-
-        console.log(
-            "NEXORA — Partenaires récupérés :",
-            response.total
-        );
+    try {
+        const response = await tablesDB.listRows({
+            databaseId: APPWRITE_DATABASE_ID,
+            tableId: APPWRITE_PARTNERS_TABLE_ID
+        });
 
         const totalPartenaires =
             document.getElementById("Total-partenaires");
@@ -157,28 +165,21 @@ console.log("Lignes reçues :", response.rows);
             totalPartenaires.textContent = response.total;
         }
 
-    })
-    .catch((error) => {
-        console.error(
-            "NEXORA — Erreur de lecture Partenaires :",
-            error
-        );
-    });
+        console.log("NEXORA — Partenaires :", response.total);
+
+    } catch (erreur) {
+        console.error("NEXORA — Erreur Partenaires :", erreur);
+    }
 
     // ----------------------------------------
     // COMPTEUR DES ÉVÉNEMENTS
     // ----------------------------------------
 
-    tablesDB.listRows({
-        databaseId: APPWRITE_DATABASE_ID,
-        tableId: APPWRITE_EVENTS_TABLE_ID
-    })
-    .then((response) => {
-
-        console.log(
-            "NEXORA — Événements récupérés :",
-            response.total
-        );
+    try {
+        const response = await tablesDB.listRows({
+            databaseId: APPWRITE_DATABASE_ID,
+            tableId: APPWRITE_EVENTS_TABLE_ID
+        });
 
         const totalEvenements =
             document.getElementById("Total-evenements");
@@ -187,28 +188,21 @@ console.log("Lignes reçues :", response.rows);
             totalEvenements.textContent = response.total;
         }
 
-    })
-    .catch((error) => {
-        console.error(
-            "NEXORA — Erreur de lecture Événements :",
-            error
-        );
-    });
+        console.log("NEXORA — Événements :", response.total);
+
+    } catch (erreur) {
+        console.error("NEXORA — Erreur Événements :", erreur);
+    }
 
     // ----------------------------------------
     // COMPTEUR DES COMMANDES
     // ----------------------------------------
 
-    tablesDB.listRows({
-        databaseId: APPWRITE_DATABASE_ID,
-        tableId: APPWRITE_ORDERS_TABLE_ID
-    })
-    .then((response) => {
-
-        console.log(
-            "NEXORA — Commandes récupérées :",
-            response.total
-        );
+    try {
+        const response = await tablesDB.listRows({
+            databaseId: APPWRITE_DATABASE_ID,
+            tableId: APPWRITE_ORDERS_TABLE_ID
+        });
 
         const totalCommandes =
             document.getElementById("Total-commandes");
@@ -217,12 +211,10 @@ console.log("Lignes reçues :", response.rows);
             totalCommandes.textContent = response.total;
         }
 
-    })
-    .catch((error) => {
-        console.error(
-            "NEXORA — Erreur de lecture Commandes :",
-            error
-        );
-    });
+        console.log("NEXORA — Commandes :", response.total);
+
+    } catch (erreur) {
+        console.error("NEXORA — Erreur Commandes :", erreur);
+    }
 
 });
