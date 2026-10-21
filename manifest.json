@@ -1,0 +1,12 @@
+{
+  "id": "./public.html",
+  "name": "NEXORA",
+  "short_name": "NEXORA",
+  "description": "Application de gestion NEXORA",
+  "start_url": "./public.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#12345b",
+  "lang": "fr"
+}
