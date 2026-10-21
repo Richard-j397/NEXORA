@@ -54,10 +54,9 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .then((response) => {
 
-        console.log(
-            "NEXORA — Clients récupérés :",
-            response.total
-        );
+     console.log("Réponse Appwrite complète :", response);
+console.log("Nombre total :", response.total);
+console.log("Lignes reçues :", response.rows);
         console.log("Réponse complète Appwrite :", response);
 
         // Mise à jour du compteur
