@@ -4,6 +4,23 @@
 // ============================================
 
 "use strict";
+/* NEXORA — Protection de l'administration */
+(async function verifierConnexionAdmin() {
+    try {
+        const clientAuth = new Appwrite.Client()
+            .setEndpoint("https://fra.cloud.appwrite.io/v1")
+            .setProject("6acea3d5003acc6b81be");
+
+        const compte = new Appwrite.Account(clientAuth);
+        const utilisateur = await compte.get();
+
+        if (!utilisateur || !utilisateur.$id) {
+            window.location.replace("./login.html");
+        }
+    } catch (erreur) {
+        window.location.replace("./login.html");
+    }
+})();
 
 // ============================================
 // 1. CONFIGURATION APPWRITE
