@@ -8,7 +8,7 @@
 
     <title>NEXORA — Votre univers événementiel</title>
 
-    <link rel="stylesheet" href="css/public.css">
+    <link rel="stylesheet" href="./public.css">
     <link rel="manifest" href="./manifest.json">
 </head>
 
@@ -441,7 +441,20 @@
                 });
         });
     }
-    </script>
+    
+    <script src="./public.js"></script>
 
+<script>
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./service-worker.js")
+            .then(() => console.log("NEXORA : service worker activé"))
+            .catch(error => console.error(
+                "Erreur du service worker :", error
+            ));
+    });
+}
+</script>
+    
 </body>
 </html>
