@@ -1,12 +1,12 @@
 {
-  "id": "./public.html",
+  "id": "./",
   "name": "NEXORA",
   "short_name": "NEXORA",
-  "description": "Application de gestion NEXORA",
-  "start_url": "./public.html",
+  "description": "NEXORA, votre plateforme dédiée aux événements et aux services.",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#12345b",
+  "theme_color": "#101b35",
   "lang": "fr"
 }
