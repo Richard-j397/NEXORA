@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#101b35">
+    <title>NEXORA — Connexion administrateur</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #101b35;
+            color: #17233b;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 420px;
+            padding: 30px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 15px 45px #0003;
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            color: #101b35;
+            text-align: center;
+        }
+
+        .subtitle {
+            margin-bottom: 26px;
+            color: #64748b;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin: 16px 0 7px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 22px;
+            padding: 14px;
+            border: 0;
+            border-radius: 8px;
+            background: #c49a38;
+            color: #101b35;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            opacity: .6;
+            cursor: wait;
+        }
+
+        #message {
+            margin-top: 16px;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        .back {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            color: #475569;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="login-card">
+        <h1>NEXORA</h1>
+        <p class="subtitle">Administration centrale</p>
+
+        <form id="loginForm">
+            <label for="email">Adresse e-mail</label>
+            <input
+                id="email"
+                type="email"
+                autocomplete="username"
+                required
+            >
+
+            <label for="password">Mot de passe</label>
+            <input
+                id="password"
+                type="password"
+                autocomplete="current-password"
+                required
+            >
+
+            <button id="loginButton" type="submit">
+                Se connecter
+            </button>
+
+            <p id="message" role="status" aria-live="polite"></p>
+        </form>
+
+        <a class="back" href="./index.html">
+            Retour au site NEXORA
+        </a>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@21.3.0"></script>
+
+    <script>
+        "use strict";
+
+        const ENDPOINT = "https://fra.cloud.appwrite.io/v1";
+        const PROJECT_ID = "6acea3d5003acc6b81be";
+
+        const client = new Appwrite.Client()
+            .setEndpoint(ENDPOINT)
+            .setProject(PROJECT_ID);
+
+        const account = new Appwrite.Account(client);
+
+        const form = document.getElementById("loginForm");
+        const button = document.getElementById("loginButton");
+        const message = document.getElementById("message");
+
+        form.addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            button.disabled = true;
+            message.textContent = "Connexion en cours...";
+
+            try {
+                const email =
+                    document.getElementById("email").value.trim();
+
+                const password =
+                    document.getElementById("password").value;
+
+                await account.createEmailPasswordSession({
+                    email: email,
+                    password: password
+                });
+
+                message.textContent =
+                    "Connexion réussie. Vérification des droits...";
+
+                const user = await account.get();
+
+                // Cette page n'accorde pas, à elle seule,
+                // les droits d'administration.
+                // Les autorisations doivent être configurées
+                // dans Appwrite pour le compte concerné.
+
+                if (!user || !user.$id) {
+                    throw new Error(
+                        "Impossible de vérifier le compte."
+                    );
+                }
+
+                window.location.href = "./admin.html";
+
+            } catch (error) {
+                console.error("Connexion NEXORA :", error);
+
+                message.textContent =
+                    "Connexion impossible. Vérifie tes identifiants " +
+                    "et les paramètres du projet Appwrite.";
+
+                button.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
