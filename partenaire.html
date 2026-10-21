@@ -1,0 +1,718 @@
+<!DOCTYPE html><html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#14242d">
+    <title>NEXORA — Espace partenaire</title>
+    <link rel="stylesheet" href="css/partenaire.css">
+</head><body><div class="partner-layout"><!-- MENU LATÉRAL -->
+<aside class="partner-sidebar" id="partnerSidebar">
+
+    <div class="partner-logo">
+        NEXORA<span>.</span>
+    </div>
+
+    <nav class="partner-menu" aria-label="Navigation partenaire">
+        <button type="button" class="active" data-section="dashboard">
+            Tableau de bord
+        </button>
+
+        <button type="button" data-section="shops">
+            Mes boutiques
+        </button>
+
+        <button type="button" data-section="products">
+            Mes produits
+        </button>
+
+        <button type="button" data-section="create-event">
+            Créer un événement
+        </button>
+
+        <button type="button" data-section="events">
+            Mes événements
+        </button>
+
+        <button type="button" data-section="participants">
+            Participants
+        </button>
+
+        <button type="button" data-section="wallet">
+            Mon portefeuille
+        </button>
+
+        <button type="button" data-section="transactions">
+            Transactions
+        </button>
+
+        <button type="button" data-section="profile">
+            Mon profil
+        </button>
+
+        <a href="index.html" class="partner-back-link">
+            Retour au site public
+        </a>
+    </nav>
+
+</aside>
+
+<!-- CONTENU PRINCIPAL -->
+<main class="partner-main">
+
+    <header class="partner-topbar">
+        <button
+            type="button"
+            class="partner-mobile-toggle"
+            id="partnerMobileToggle"
+            aria-label="Ouvrir le menu"
+            aria-expanded="false"
+        >☰</button>
+
+        <h1 id="partnerPageTitle">Tableau de bord</h1>
+
+        <div class="partner-account-label">
+            Espace partenaire
+        </div>
+    </header>
+
+    <div class="partner-content">
+
+        <!-- 1. TABLEAU DE BORD -->
+        <section class="partner-section active" id="section-dashboard">
+
+            <h1>Bienvenue dans votre espace partenaire</h1>
+
+            <p>
+                Gérez vos boutiques, vos produits, vos événements
+                et suivez votre activité depuis un espace unique.
+            </p>
+
+            <div class="partner-stats">
+
+                <article class="partner-stat">
+                    <h3>Mes boutiques</h3>
+                    <p id="partnerTotalShops">—</p>
+                </article>
+
+                <article class="partner-stat">
+                    <h3>Mes produits</h3>
+                    <p id="partnerTotalProducts">—</p>
+                </article>
+
+                <article class="partner-stat">
+                    <h3>Mes événements</h3>
+                    <p id="partnerTotalEvents">—</p>
+                </article>
+
+                <article class="partner-stat">
+                    <h3>Mes participants</h3>
+                    <p id="partnerTotalParticipants">—</p>
+                </article>
+
+            </div>
+
+            <div class="partner-panel">
+                <h2>Vue d'ensemble</h2>
+                <p>
+                    Retrouvez ici les informations essentielles
+                    relatives à vos activités sur NEXORA.
+                </p>
+                <div class="partner-placeholder">
+                    Les statistiques de votre compte apparaîtront
+                    ici après la connexion à Appwrite.
+                </div>
+            </div>
+
+            <div class="partner-wallet">
+                <h2>Mon portefeuille</h2>
+                <p>Solde disponible</p>
+                <div class="partner-wallet-amount">— FCFA</div>
+                <p>
+                    Le solde réel sera affiché après la mise en place
+                    de la connexion sécurisée aux données financières.
+                </p>
+                <button
+                    type="button"
+                    class="partner-button"
+                    data-section="wallet"
+                >
+                    Consulter mon portefeuille
+                </button>
+            </div>
+
+        </section>
+
+        <!-- 2. MES BOUTIQUES -->
+        <section class="partner-section" id="section-shops">
+
+            <h1>Mes boutiques</h1>
+            <p>
+                Créez et gérez les boutiques que vous exploitez
+                sur la plateforme NEXORA.
+            </p>
+
+            <div class="partner-panel">
+                <h2>Créer une boutique</h2>
+
+                <form id="partnerShopForm">
+
+                    <div class="partner-form-group">
+                        <label for="partnerShopName">
+                            Nom de la boutique
+                        </label>
+                        <input
+                            type="text"
+                            id="partnerShopName"
+                            name="name"
+                            placeholder="Ex. : Boutique Excellence"
+                            required
+                        >
+                    </div>
+
+                    <div class="partner-form-group">
+                        <label for="partnerShopCategory">
+                            Catégorie
+                        </label>
+                        <select
+                            id="partnerShopCategory"
+                            name="category"
+                            required
+                        >
+                            <option value="">Choisir une catégorie</option>
+                            <option value="mode">Mode et accessoires</option>
+                            <option value="beaute">Beauté et bien-être</option>
+                            <option value="electronique">Électronique</option>
+                            <option value="alimentation">Alimentation</option>
+                            <option value="services">Services</option>
+                            <option value="autre">Autre</option>
+                        </select>
+                    </div>
+
+                    <div class="partner-form-group">
+                        <label for="partnerShopDescription">
+                            Description
+                        </label>
+                        <textarea
+                            id="partnerShopDescription"
+                            name="description"
+                            rows="4"
+                            placeholder="Présentez votre boutique..."
+                        ></textarea>
+                    </div>
+
+                    <button type="submit" class="partner-button">
+                        Créer la boutique
+                    </button>
+
+                </form>
+            </div>
+
+            <div class="partner-panel">
+                <h2>Liste de mes boutiques</h2>
+                <div class="partner-placeholder">
+                    Vos boutiques enregistrées apparaîtront ici.
+                </div>
+            </div>
+
+        </section>
+
+        <!-- 3. MES PRODUITS -->
+        <section class="partner-section" id="section-products">
+
+            <h1>Mes produits</h1>
+            <p>
+                Ajoutez vos produits et gérez votre catalogue commercial.
+            </p>
+
+            <div class="partner-panel">
+                <h2>Ajouter un produit</h2>
+
+                <form id="partnerProductForm">
+
+                    <div class="partner-form-group">
+                        <label for="partnerProductName">
+                            Nom du produit
+                        </label>
+                        <input
+                            type="text"
+                            id="partnerProductName"
+                            name="name"
+                            placeholder="Nom du produit"
+                            required
+                        >
+                    </div>
+
+                    <div class="partner-form-group">
+                        <label for="partnerProductCategory">
+                            Catégorie
+                        </label>
+                        <input
+                            type="text"
+                            id="partnerProductCategory"
+                            name="category"
+                            placeholder="Catégorie du produit"
+                            required
+                        >
+                    </div>
+
+                    <div class="partner-form-group">
+                        <label for="partnerProductPrice">
+                            Prix en FCFA
+                        </label>
+                        <input
+                            type="number"
+                            id="partnerProductPrice"
+                            name="price"
+                            min="0"
+                            step="1"
+                            placeholder="Ex. : 15000"
+                            required
+                        >
+                    </div>
+
+                    <div class="partner-form-group">
+                        <label for="partnerProductStock">
+                            Quantité en stock
+                        </label>
+                        <input
+                            type="number"
+                            id="partnerProductStock"
+                            name="stock"
+                            min="0"
+                            step="1"
+                            placeholder="Quantité disponible"
+                            required
+                        >
+                    </div>
+
+                    <div class="partner-form-group">
+                        <label for="partnerProductDescription">
+                            Description
+                        </label>
+                        <textarea
+                            id="partnerProductDescription"
+                            name="description"
+                            rows="4"
+                            placeholder="Description du produit"
+                        ></textarea>
+                    </div>
+
+                    <button type="submit" class="partner-button">
+                        Enregistrer le produit
+                    </button>
+
+                </form>
+            </div>
+
+            <div class="partner-panel">
+                <h2>Mon catalogue</h2>
+                <div class="partner-placeholder">
+                    Les produits enregistrés apparaîtront ici.
+                </div>
+            </div>
+
+        </section>
+
+        <!-- 4. CRÉER UN ÉVÉNEMENT -->
+        <section class="partner-section" id="section-create-event">
+
+            <h1>Créer un événement</h1>
+            <p>
+                Publiez un événement et préparez son organisation
+                sur NEXORA.
+            </p>
+
+            <div class="partner-panel">
+
+                <form id="partnerEventForm">
+
+                    <div class="partner-form-group">
+                        <label for="partnerEventName">
+                            Nom de l'événement
+                        </label>
+                        <input
+                            type="text"
+                            id="partnerEventName"
+                            name="name"
+                            placeholder="Nom de l'événement"
+                            required
+                        >
+                    </div>
+
+                    <div class="partner-form-group">
+                        <label for="partnerEventType">
+                            Type d'événement
+                        </label>
+                        <select
+                            id="partnerEventType"
+                            name="type"
+                            required
+                        >
+                            <option value="">Sélectionner un type</option>
+                            <option value="vote">Vote</option>
+                            <option value="billetterie">Vente de billets</option>
+                            <option value="inscription">Inscriptions</option>
+                            <option value="concours">Concours et candidatures</option>
+                            <option value="conference">Conférence ou séminaire</option>
+                            <option value="reservation">Réservations</option>
+                            <option value="autre">Autre événement</option>
+                        </select>
+                    </div>
+
+                    <div class="partner-form-group">
+                        <label for="partnerEventDate">
+                            Date de l'événement
+                        </label>
+                        <input
+                            type="date"
+                            id="partnerEventDate"
+                            name="date"
+                            required
+                        >
+                    </div>
+
+                    <div class="partner-form-group">
+                        <label for="partnerEventLocation">
+                            Lieu de l'événement
+                        </label>
+                        <input
+                            type="text"
+                            id="partnerEventLocation"
+                            name="location"
+                            placeholder="Ville, salle ou adresse"
+                            required
+                        >
+                    </div>
+
+                    <div class="partner-form-group">
+                        <label for="partnerEventPrice">
+                            Prix d'entrée en FCFA
+                        </label>
+                        <input
+                            type="number"
+                            id="partnerEventPrice"
+                            name="price"
+                            min="0"
+                            step="1"
+                            value="0"
+                            required
+                        >
+                    </div>
+
+                    <div class="partner-form-group">
+                        <label for="partnerEventDescription">
+                            Description
+                        </label>
+                        <textarea
+                            id="partnerEventDescription"
+                            name="description"
+                            rows="5"
+                            placeholder="Présentez votre événement..."
+                            required
+                        ></textarea>
+                    </div>
+
+                    <button type="submit" class="partner-button">
+                        Préparer la création
+                    </button>
+
+                </form>
+
+                <p class="partner-note">
+                    Après la connexion à Appwrite, vous pourrez
+                    enregistrer votre événement puis configurer
+                    ses billets, inscriptions, candidats ou votes
+                    selon son type.
+                </p>
+
+            </div>
+
+        </section>
+
+        <!-- 5. MES ÉVÉNEMENTS -->
+        <section class="partner-section" id="section-events">
+
+            <h1>Mes événements</h1>
+            <p>
+                Retrouvez et gérez les événements associés à votre compte.
+            </p>
+
+            <div class="partner-panel">
+                <h2>Événements publiés</h2>
+                <div class="partner-placeholder">
+                    Vos événements apparaîtront ici après connexion
+                    à la base de données.
+                </div>
+            </div>
+
+        </section>
+
+        <!-- 6. PARTICIPANTS -->
+        <section class="partner-section" id="section-participants">
+
+            <h1>Participants</h1>
+            <p>
+                Consultez les participants inscrits à vos événements.
+            </p>
+
+            <div class="partner-panel">
+                <h2>Liste des participants</h2>
+                <div class="partner-placeholder">
+                    Les participants seront affichés ici lorsque
+                    les données seront reliées à Appwrite.
+                </div>
+            </div>
+
+        </section>
+
+        <!-- 7. PORTEFEUILLE -->
+        <section class="partner-section" id="section-wallet">
+
+            <h1>Mon portefeuille</h1>
+            <p>
+                Suivez vos revenus et consultez les opérations financières.
+            </p>
+
+            <div class="partner-wallet">
+                <h2>Solde du portefeuille</h2>
+                <p>Solde disponible</p>
+                <div class="partner-wallet-amount">— FCFA</div>
+                <p>
+                    Le solde sera calculé à partir des transactions
+                    vérifiées côté serveur.
+                </p>
+            </div>
+
+            <div class="partner-panel">
+                <h2>Demandes de retrait</h2>
+                <p>
+                    La procédure de retrait sera activée après la mise
+                    en place du prestataire de paiement et des contrôles
+                    de sécurité.
+                </p>
+                <div class="partner-placeholder">
+                    Aucune opération financière affichée pour le moment.
+                </div>
+            </div>
+
+        </section>
+
+        <!-- 8. TRANSACTIONS -->
+        <section class="partner-section" id="section-transactions">
+
+            <h1>Transactions</h1>
+            <p>
+                Consultez l'historique de vos opérations financières.
+            </p>
+
+            <div class="partner-panel">
+                <h2>Historique des transactions</h2>
+
+                <div class="partner-table-wrapper">
+                    <table class="partner-table">
+                        <thead>
+                            <tr>
+                                <th>Référence</th>
+                                <th>Opération</th>
+                                <th>Montant</th>
+                                <th>Statut</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="partnerTransactionsBody">
+                            <tr>
+                                <td colspan="5">
+                                    Aucune transaction disponible.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- 9. PROFIL -->
+        <section class="partner-section" id="section-profile">
+
+            <h1>Mon profil</h1>
+            <p>
+                Consultez et complétez les informations de votre compte.
+            </p>
+
+            <div class="partner-panel">
+
+                <form id="partnerProfileForm">
+
+                    <div class="partner-form-group">
+                        <label for="partnerFullName">
+                            Nom complet ou raison sociale
+                        </label>
+                        <input
+                            type="text"
+                            id="partnerFullName"
+                            name="name"
+                            placeholder="Nom du partenaire"
+                            required
+                        >
+                    </div>
+
+                    <div class="partner-form-group">
+                        <label for="partnerEmail">
+                            Adresse e-mail
+                        </label>
+                        <input
+                            type="email"
+                            id="partnerEmail"
+                            name="email"
+                            placeholder="adresse@exemple.com"
+                        >
+                    </div>
+
+                    <div class="partner-form-group">
+                        <label for="partnerPhone">
+                            Téléphone
+                        </label>
+                        <input
+                            type="tel"
+                            id="partnerPhone"
+                            name="phone"
+                            placeholder="Numéro de téléphone"
+                        >
+                    </div>
+
+                    <div class="partner-form-group">
+                        <label for="partnerAddress">
+                            Adresse
+                        </label>
+                        <input
+                            type="text"
+                            id="partnerAddress"
+                            name="address"
+                            placeholder="Ville et adresse"
+                        >
+                    </div>
+
+                    <button type="submit" class="partner-button">
+                        Enregistrer les informations
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </div>
+</main>
+
+</div><script>
+"use strict";
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const sidebar = document.getElementById("partnerSidebar");
+    const mobileToggle = document.getElementById("partnerMobileToggle");
+    const pageTitle = document.getElementById("partnerPageTitle");
+
+    const menuButtons = document.querySelectorAll(
+        ".partner-menu button[data-section], button[data-section]"
+    );
+
+    const sections = document.querySelectorAll(".partner-section");
+
+    const sectionTitles = {
+        "dashboard": "Tableau de bord",
+        "shops": "Mes boutiques",
+        "products": "Mes produits",
+        "create-event": "Créer un événement",
+        "events": "Mes événements",
+        "participants": "Participants",
+        "wallet": "Mon portefeuille",
+        "transactions": "Transactions",
+        "profile": "Mon profil"
+    };
+
+    function openSection(sectionName) {
+        const target = document.getElementById("section-" + sectionName);
+
+        if (!target) {
+            console.warn("Section introuvable :", sectionName);
+            return;
+        }
+
+        sections.forEach(function (section) {
+            section.classList.remove("active");
+        });
+
+        target.classList.add("active");
+
+        document.querySelectorAll(".partner-menu button[data-section]")
+            .forEach(function (button) {
+                button.classList.toggle(
+                    "active",
+                    button.dataset.section === sectionName
+                );
+            });
+
+        pageTitle.textContent =
+            sectionTitles[sectionName] || "Espace partenaire";
+
+        sidebar.classList.remove("open");
+        mobileToggle.setAttribute("aria-expanded", "false");
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    menuButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+            openSection(button.dataset.section);
+        });
+    });
+
+    mobileToggle.addEventListener("click", function () {
+        const isOpen = sidebar.classList.toggle("open");
+        mobileToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    document.addEventListener("click", function (event) {
+        if (
+            window.innerWidth <= 760 &&
+            sidebar.classList.contains("open") &&
+            !sidebar.contains(event.target) &&
+            !mobileToggle.contains(event.target)
+        ) {
+            sidebar.classList.remove("open");
+            mobileToggle.setAttribute("aria-expanded", "false");
+        }
+    });
+
+    /*
+     * Les formulaires ne sont pas encore connectés à Appwrite.
+     * On empêche donc leur soumission silencieuse.
+     */
+    [
+        "partnerShopForm",
+        "partnerProductForm",
+        "partnerEventForm",
+        "partnerProfileForm"
+    ].forEach(function (formId) {
+        const form = document.getElementById(formId);
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            alert(
+                "L'interface est prête, mais l'enregistrement nécessite " +
+                "la connexion sécurisée à Appwrite. Aucune donnée n'a été enregistrée."
+            );
+        });
+    });
+
+    console.log("NEXORA Partenaire : interface chargée.");
+
+});
+</script>
+<script src="js/partenaire.js"></script>
+</body>
+</html>

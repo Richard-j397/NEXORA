@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXORA — Administration centrale</title>
+    <meta name="description" content="Administration centrale de la plateforme NEXORA.">
+
+    <link rel="stylesheet" href="css/admin.css">
+
+    <style>
+        .admin-page-heading {
+            margin: 0 0 22px;
+            color: var(--admin-navy);
+            font-size: 25px;
+        }
+
+        .admin-section-intro {
+            margin: 0 0 22px;
+            color: var(--admin-muted);
+            line-height: 1.7;
+        }
+
+        .admin-menu button {
+            font-family: inherit;
+        }
+
+        .admin-menu a.admin-menu-link {
+            display: block;
+        }
+
+        .admin-status {
+            display: inline-block;
+            padding: 5px 10px;
+            color: #526078;
+            background: #edf2f7;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        .admin-alert {
+            padding: 14px 16px;
+            margin-bottom: 20px;
+            color: #6b5310;
+            background: #fff8df;
+            border: 1px solid #f0dfa3;
+            border-radius: 8px;
+            line-height: 1.6;
+        }
+
+        .admin-mobile-heading {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .admin-back-link {
+            display: inline-block;
+            margin-top: 18px;
+            color: var(--admin-blue);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        @media (max-width: 600px) {
+            .admin-topbar > span {
+                display: none;
+            }
+
+            .admin-page-heading {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="admin-layout">
+
+    <!-- MENU LATÉRAL -->
+    <aside class="admin-sidebar" id="adminSidebar">
+        <div class="admin-logo">NEXORA</div>
+
+        <p>Administration centrale</p>
+
+        <nav class="admin-menu" aria-label="Menu d'administration">
+            <button type="button" class="active" data-section="dashboard">
+                🏠 Tableau de bord
+            </button>
+
+            <button type="button" data-section="clients">
+                👥 Clients
+            </button>
+
+            <button type="button" data-section="partenaires">
+                🤝 Partenaires
+            </button>
+
+            <button type="button" data-section="boutiques">
+                🏪 Boutiques
+            </button>
+
+            <button type="button" data-section="produits">
+                📦 Produits
+            </button>
+
+            <button type="button" data-section="evenements">
+                🎟️ Événements
+            </button>
+
+            <button type="button" data-section="commandes">
+                🛍️ Commandes
+            </button>
+
+            <button type="button" data-section="portefeuilles">
+                💳 Portefeuilles
+            </button>
+
+            <button type="button" data-section="transactions">
+                📊 Transactions
+            </button>
+
+            <button type="button" data-section="retraits">
+                💸 Demandes de retrait
+            </button>
+
+            <button type="button" data-section="securite">
+                🔐 Sécurité
+            </button>
+
+            <button type="button" data-section="parametres">
+                ⚙️ Paramètres
+            </button>
+
+            <a class="admin-menu-link" href="index.html">
+                🌐 Retour au site public
+            </a>
+        </nav>
+    </aside>
+
+    <!-- CONTENU PRINCIPAL -->
+    <main class="admin-main">
+
+        <header class="admin-topbar">
+            <div class="admin-mobile-heading">
+                <button
+                    type="button"
+                    class="admin-mobile-toggle"
+                    id="adminMobileToggle"
+                    aria-label="Ouvrir le menu"
+                    aria-controls="adminSidebar"
+                    aria-expanded="false">
+                    ☰
+                </button>
+
+                <div>
+                    <h1 id="adminPageTitle">Tableau de bord</h1>
+                    <span>Centre de gestion NEXORA</span>
+                </div>
+            </div>
+
+            <span>Administration</span>
+        </header>
+
+        <div class="admin-content">
+
+            <!-- TABLEAU DE BORD -->
+            <section class="admin-section active" id="admin-dashboard">
+                <h2 class="admin-page-heading">Vue d'ensemble</h2>
+
+                <div class="admin-alert">
+                    Les chiffres seront chargés depuis Appwrite après
+                    la configuration et la vérification de la connexion.
+                    Les valeurs actuelles ne représentent pas des données réelles.
+                </div>
+
+                <div class="admin-stats">
+                    <article class="admin-stat">
+                        <span>Total des clients</span>
+                        <h3 id="Total-clients">—</h3>
+                    </article>
+
+                    <article class="admin-stat">
+                        <span>Total des partenaires</span>
+                        <h3 id="Total-partenaires">—</h3>
+                    </article>
+
+                    <article class="admin-stat">
+                        <span>Total des événements</span>
+                        <h3 id="Total-evenements">—</h3>
+                    </article>
+
+                    <article class="admin-stat">
+                        <span>Total des commandes</span>
+                        <h3 id="Total-commandes">—</h3>
+                    </article>
+                </div>
+
+                <div class="admin-panel">
+                    <h3>Activité de la plateforme</h3>
+
+                    <div class="admin-placeholder">
+                        Les activités récentes seront affichées ici
+                        après la connexion des données.
+                    </div>
+                </div>
+
+                <div class="admin-panel">
+                    <h3>État des services</h3>
+
+                    <div class="admin-table-wrapper">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Service</th>
+                                    <th>État</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td>Interface d'administration</td>
+                                    <td>
+                                        <span class="admin-status">
+                                            Interface chargée
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Base de données Appwrite</td>
+                                    <td>
+                                        <span class="admin-status">
+                                            Connexion à configurer
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Paiements</td>
+                                    <td>
+                                        <span class="admin-status">
+                                            À configurer
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CLIENTS -->
+            <section class="admin-section" id="admin-clients">
+                <h2 class="admin-page-heading">Gestion des clients</h2>
+
+                <p class="admin-section-intro">
+                    Consulte les comptes clients et leur activité sur NEXORA.
+                </p>
+
+                <div class="admin-panel">
+                    <h3>Liste des clients</h3>
+
+                    <div class="admin-table-wrapper">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Téléphone</th>
+                <th>Statut</th>
+            </tr>
+        </thead>
+        <tbody id="liste-clients">
+            <tr>
+                <td colspan="4">Chargement des clients...</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+                </div>
+            </section>
+
+            <!-- PARTENAIRES -->
+            <section class="admin-section" id="admin-partenaires">
+                <h2 class="admin-page-heading">Gestion des partenaires</h2>
+
+                <p class="admin-section-intro">
+                    Supervise les partenaires et leurs activités commerciales.
+                </p>
+
+                <div class="admin-panel">
+                    <h3>Liste des partenaires</h3>
+
+                    <div class="admin-placeholder">
+                        Les partenaires seront chargés depuis Appwrite
+                        après vérification de la structure existante.
+                    </div>
+                </div>
+            </section>
+
+            <!-- BOUTIQUES -->
+            <section class="admin-section" id="admin-boutiques">
+                <h2 class="admin-page-heading">Gestion des boutiques</h2>
+
+                <div class="admin-panel">
+                    <h3>Boutiques de la plateforme</h3>
+
+                    <div class="admin-placeholder">
+                        Les boutiques seront affichées ici.
+                    </div>
+                </div>
+            </section>
+
+            <!-- PRODUITS -->
+            <section class="admin-section" id="admin-produits">
+                <h2 class="admin-page-heading">Gestion des produits</h2>
+
+                <div class="admin-panel">
+                    <h3>Catalogue des produits</h3>
+
+                    <div class="admin-placeholder">
+                        Les produits seront affichés ici.
+                    </div>
+                </div>
+            </section>
+
+            <!-- ÉVÉNEMENTS -->
+            <section class="admin-section" id="admin-evenements">
+                <h2 class="admin-page-heading">Gestion des événements</h2>
+
+                <div class="admin-panel">
+                    <h3>Événements de la plateforme</h3>
+
+                    <div class="admin-placeholder">
+                        Les événements seront affichés ici.
+                    </div>
+                </div>
+            </section>
+
+            <!-- COMMANDES -->
+            <section class="admin-section" id="admin-commandes">
+                <h2 class="admin-page-heading">Gestion des commandes</h2>
+
+                <div class="admin-panel">
+                    <h3>Commandes enregistrées</h3>
+
+                    <div class="admin-placeholder">
+                        Les commandes et leur statut seront affichés ici.
+                    </div>
+                </div>
+            </section>
+
+            <!-- PORTEFEUILLES -->
+            <section class="admin-section" id="admin-portefeuilles">
+                <h2 class="admin-page-heading">Supervision des portefeuilles</h2>
+
+                <div class="admin-wallet">
+                    <p>SUPERVISION FINANCIÈRE</p>
+                    <h2>Solde global : non disponible</h2>
+
+                    <p>
+                        Les soldes seront calculés à partir de données
+                        vérifiées côté serveur.
+                    </p>
+                </div>
+
+                <div class="admin-alert" style="margin-top:20px;">
+                    Aucun solde réel ne doit être calculé ou modifié
+                    uniquement dans le navigateur.
+                </div>
+
+                <div class="admin-panel">
+                    <h3>Comptes et soldes</h3>
+
+                    <div class="admin-placeholder">
+                        Les données financières seront disponibles après
+                        la mise en place des règles de sécurité et des traitements serveur.
+                    </div>
+                </div>
+            </section>
+
+            <!-- TRANSACTIONS -->
+            <section class="admin-section" id="admin-transactions">
+                <h2 class="admin-page-heading">Transactions financières</h2>
+
+                <div class="admin-panel">
+                    <h3>Historique des transactions</h3>
+
+                    <div class="admin-placeholder">
+                        Les transactions vérifiées seront affichées ici
+                        après la connexion du système de paiement.
+                    </div>
+                </div>
+            </section>
+
+            <!-- RETRAITS -->
+            <section class="admin-section" id="admin-retraits">
+                <h2 class="admin-page-heading">Demandes de retrait</h2>
+
+                <div class="admin-panel">
+                    <h3>Demandes à examiner</h3>
+
+                    <div class="admin-placeholder">
+                        Les demandes de retrait seront affichées ici.
+                        Aucun retrait réel n'est traité par cette interface.
+                    </div>
+                </div>
+            </section>
+
+            <!-- SÉCURITÉ -->
+            <section class="admin-section" id="admin-securite">
+                <h2 class="admin-page-heading">Sécurité de la plateforme</h2>
+
+                <div class="admin-alert">
+                    Cette page constitue actuellement une interface.
+                    Elle ne remplace pas l'authentification ni les permissions
+                    côté serveur.
+                </div>
+
+                <div class="admin-panel">
+                    <h3>Contrôles de sécurité</h3>
+
+                    <div class="admin-placeholder">
+                        La gestion des rôles, des permissions, des sessions
+                        et des journaux d'activité sera configurée séparément.
+                    </div>
+                </div>
+            </section>
+
+            <!-- PARAMÈTRES -->
+            <section class="admin-section" id="admin-parametres">
+                <h2 class="admin-page-heading">Paramètres de NEXORA</h2>
+
+                <div class="admin-panel">
+                    <h3>Configuration générale</h3>
+
+                    <div class="admin-placeholder">
+                        Les paramètres généraux seront ajoutés après
+                        validation de l'architecture des données.
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+</div>
+
+<script>
+"use strict";
+
+document.addEventListener("DOMContentLoaded", function () {
+    const sidebar = document.getElementById("adminSidebar");
+    const mobileToggle = document.getElementById("adminMobileToggle");
+    const pageTitle = document.getElementById("adminPageTitle");
+
+    const menuButtons = document.querySelectorAll(
+        ".admin-menu [data-section]"
+    );
+
+    const sections = document.querySelectorAll(".admin-section");
+
+    const titles = {
+        dashboard: "Tableau de bord",
+        clients: "Gestion des clients",
+        partenaires: "Gestion des partenaires",
+        boutiques: "Gestion des boutiques",
+        produits: "Gestion des produits",
+        evenements: "Gestion des événements",
+        commandes: "Gestion des commandes",
+        portefeuilles: "Supervision des portefeuilles",
+        transactions: "Transactions financières",
+        retraits: "Demandes de retrait",
+        securite: "Sécurité de la plateforme",
+        parametres: "Paramètres de NEXORA"
+    };
+
+    function afficherSection(nom, bouton) {
+        const sectionCible = document.getElementById("admin-" + nom);
+
+        if (!sectionCible) {
+            console.error("Section introuvable :", nom);
+            return;
+        }
+
+        sections.forEach(function (section) {
+            section.classList.toggle(
+                "active",
+                section === sectionCible
+            );
+        });
+
+        menuButtons.forEach(function (element) {
+            element.classList.toggle(
+                "active",
+                element === bouton
+            );
+        });
+
+        pageTitle.textContent = titles[nom] || "Administration";
+
+        sidebar.classList.remove("open");
+        mobileToggle.setAttribute("aria-expanded", "false");
+    }
+
+    menuButtons.forEach(function (bouton) {
+        bouton.addEventListener("click", function () {
+            afficherSection(bouton.dataset.section, bouton);
+        });
+    });
+
+    mobileToggle.addEventListener("click", function () {
+        const estOuvert = sidebar.classList.toggle("open");
+
+        mobileToggle.setAttribute(
+            "aria-expanded",
+            String(estOuvert)
+        );
+    });
+
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+            sidebar.classList.remove("open");
+            mobileToggle.setAttribute("aria-expanded", "false");
+        }
+    });
+
+    console.log("NEXORA Administration : interface chargée.");
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/appwrite@21.3.0"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

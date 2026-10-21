@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#101b35">
+    <title>Espace client | NEXORA</title>
+    <link rel="stylesheet" href="css/client.css">
+</head>
+
+<body>
+<div class="client-layout">
+
+    <aside class="client-sidebar" id="clientSidebar">
+        <a class="client-logo" href="index.html">
+            <span class="client-logo-mark">N</span>
+            <span>NEXORA<small>ESPACE CLIENT</small></span>
+        </a>
+
+        <div class="client-user">
+            <div class="client-avatar">C</div>
+            <div>
+                <strong>Mon espace</strong>
+                <small>Bienvenue sur NEXORA</small>
+            </div>
+        </div>
+
+        <nav class="client-menu" aria-label="Navigation client">
+            <p class="client-menu-label">MENU PRINCIPAL</p>
+
+            <button class="client-menu-item active" data-section="dashboard">
+                <span>▦</span> Tableau de bord
+            </button>
+            <button class="client-menu-item" data-section="commandes">
+                <span>▤</span> Mes commandes
+            </button>
+            <button class="client-menu-item" data-section="billets">
+                <span>▣</span> Mes billets
+            </button>
+            <button class="client-menu-item" data-section="inscriptions">
+                <span>♧</span> Mes inscriptions
+            </button>
+            <button class="client-menu-item" data-section="votes">
+                <span>☆</span> Mes votes
+            </button>
+            <button class="client-menu-item" data-section="favoris">
+                <span>♡</span> Mes favoris
+            </button>
+
+            <p class="client-menu-label">FINANCES</p>
+
+            <button class="client-menu-item" data-section="portefeuille">
+                <span>▣</span> Mon portefeuille
+            </button>
+            <button class="client-menu-item" data-section="transactions">
+                <span>⇄</span> Transactions
+            </button>
+
+            <p class="client-menu-label">MON COMPTE</p>
+
+            <button class="client-menu-item" data-section="profil">
+                <span>♙</span> Mon profil
+            </button>
+        </nav>
+
+        <a class="client-sidebar-footer" href="index.html">
+            <span>←</span> Retour au site public
+        </a>
+    </aside>
+
+    <main class="client-main">
+
+        <header class="client-topbar">
+            <div class="client-topbar-left">
+                <button
+                    class="client-mobile-toggle"
+                    id="clientMobileToggle"
+                    aria-label="Ouvrir le menu"
+                    aria-expanded="false"
+                >☰</button>
+
+                <div>
+                    <span class="client-eyebrow">ESPACE PERSONNEL</span>
+                    <h1 id="clientPageTitle">Tableau de bord</h1>
+                </div>
+            </div>
+
+            <a href="index.html" class="client-public-link">
+                Voir le site <span>↗</span>
+            </a>
+        </header>
+
+        <div class="client-content">
+
+            <!-- TABLEAU DE BORD -->
+            <section class="client-section active" id="client-dashboard">
+                <div class="client-welcome">
+                    <div>
+                        <span class="client-welcome-label">VOTRE ESPACE NEXORA</span>
+                        <h2>Bienvenue dans votre espace client</h2>
+                        <p>
+                            Retrouvez vos commandes, vos événements et vos
+                            activités depuis un seul endroit.
+                        </p>
+                    </div>
+                    <div class="client-welcome-decoration">N</div>
+                </div>
+
+                <div class="client-stats">
+                    <article class="client-stat">
+                        <span class="client-stat-icon">▤</span>
+                        <span class="client-stat-label">Mes commandes</span>
+                        <strong id="clientTotalOrders">—</strong>
+                        <small>Commandes enregistrées</small>
+                    </article>
+
+                    <article class="client-stat">
+                        <span class="client-stat-icon">▣</span>
+                        <span class="client-stat-label">Mes billets</span>
+                        <strong id="clientTotalTickets">—</strong>
+                        <small>Billets disponibles</small>
+                    </article>
+
+                    <article class="client-stat">
+                        <span class="client-stat-icon">♧</span>
+                        <span class="client-stat-label">Mes inscriptions</span>
+                        <strong id="clientTotalRegistrations">—</strong>
+                        <small>Inscriptions enregistrées</small>
+                    </article>
+                </div>
+
+                <div class="client-dashboard-grid">
+                    <article class="client-panel">
+                        <div class="client-panel-heading">
+                            <div>
+                                <span class="client-eyebrow">ACTIVITÉ</span>
+                                <h3>Activités récentes</h3>
+                            </div>
+                            <span class="client-panel-symbol">↗</span>
+                        </div>
+
+                        <div id="clientRecentActivities" class="client-empty-state">
+                            <span class="client-empty-icon">◷</span>
+                            <strong>Aucune activité affichée</strong>
+                            <p>Vos activités récentes apparaîtront ici.</p>
+                        </div>
+                    </article>
+
+                    <article class="client-panel client-wallet">
+                        <span class="client-eyebrow">VOTRE PORTEFEUILLE</span>
+                        <h3>Solde disponible</h3>
+                        <div class="client-wallet-balance">
+                            <strong id="clientWalletBalance">—</strong>
+                            <span>FCFA</span>
+                        </div>
+                        <p>Consultez votre portefeuille et vos transactions.</p>
+
+                        <div class="client-actions">
+                            <button class="client-button client-button-light"
+                                data-section-link="portefeuille">
+                                Mon portefeuille
+                            </button>
+                            <button class="client-button client-button-outline"
+                                data-section-link="transactions">
+                                Transactions
+                            </button>
+                        </div>
+                    </article>
+                </div>
+
+                <article class="client-panel client-table-panel">
+                    <div class="client-panel-heading">
+                        <div>
+                            <span class="client-eyebrow">SUIVI</span>
+                            <h3>Dernières commandes</h3>
+                        </div>
+                        <button class="client-text-button"
+                            data-section-link="commandes">
+                            Tout afficher →
+                        </button>
+                    </div>
+
+                    <div class="client-table-wrapper">
+                        <table class="client-table">
+                            <thead>
+                                <tr>
+                                    <th>Référence</th>
+                                    <th>Date</th>
+                                    <th>Montant</th>
+                                    <th>Statut</th>
+                                </tr>
+                            </thead>
+                            <tbody id="clientOrdersBody">
+                                <tr>
+                                    <td colspan="4" class="client-table-empty">
+                                        Aucune commande affichée.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+            </section>
+
+            <!-- COMMANDES -->
+            <section class="client-section" id="client-commandes">
+                <div class="client-section-heading">
+                    <span class="client-eyebrow">ACHATS</span>
+                    <h2>Mes commandes</h2>
+                    <p>Consultez l'historique de vos commandes.</p>
+                </div>
+
+                <article class="client-panel">
+                    <div class="client-table-wrapper">
+                        <table class="client-table">
+                            <thead>
+                                <tr>
+                                    <th>Référence</th>
+                                    <th>Date</th>
+                                    <th>Montant</th>
+                                    <th>Statut</th>
+                                </tr>
+                            </thead>
+                            <tbody id="clientAllOrdersBody">
+                                <tr>
+                                    <td colspan="4" class="client-table-empty">
+                                        Aucune commande affichée.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+            </section>
+
+            <!-- BILLETS -->
+            <section class="client-section" id="client-billets">
+                <div class="client-section-heading">
+                    <span class="client-eyebrow">ÉVÉNEMENTS</span>
+                    <h2>Mes billets</h2>
+                    <p>Retrouvez les billets associés à votre compte.</p>
+                </div>
+                <div id="clientTicketsList" class="client-list-grid">
+                    <article class="client-panel client-empty-state">
+                        <span class="client-empty-icon">▣</span>
+                        <strong>Aucun billet affiché</strong>
+                        <p>Vos billets apparaîtront ici.</p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- INSCRIPTIONS -->
+            <section class="client-section" id="client-inscriptions">
+                <div class="client-section-heading">
+                    <span class="client-eyebrow">PARTICIPATION</span>
+                    <h2>Mes inscriptions</h2>
+                    <p>Consultez vos inscriptions aux événements.</p>
+                </div>
+                <div id="clientRegistrationsList" class="client-list-grid">
+                    <article class="client-panel client-empty-state">
+                        <span class="client-empty-icon">♧</span>
+                        <strong>Aucune inscription affichée</strong>
+                        <p>Vos inscriptions apparaîtront ici.</p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- VOTES -->
+            <section class="client-section" id="client-votes">
+                <div class="client-section-heading">
+                    <span class="client-eyebrow">PARTICIPATION</span>
+                    <h2>Mes votes</h2>
+                    <p>Retrouvez vos participations aux votes.</p>
+                </div>
+                <div id="clientVotesList" class="client-list-grid">
+                    <article class="client-panel client-empty-state">
+                        <span class="client-empty-icon">☆</span>
+                        <strong>Aucun vote affiché</strong>
+                        <p>Vos participations apparaîtront ici.</p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- FAVORIS -->
+            <section class="client-section" id="client-favoris">
+                <div class="client-section-heading">
+                    <span class="client-eyebrow">SÉLECTION</span>
+                    <h2>Mes favoris</h2>
+                    <p>Retrouvez les éléments que vous avez enregistrés.</p>
+                </div>
+                <div id="clientFavoritesList" class="client-list-grid">
+                    <article class="client-panel client-empty-state">
+                        <span class="client-empty-icon">♡</span>
+                        <strong>Aucun favori affiché</strong>
+                        <p>Vos favoris apparaîtront ici.</p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- PORTEFEUILLE -->
+            <section class="client-section" id="client-portefeuille">
+                <div class="client-section-heading">
+                    <span class="client-eyebrow">FINANCES</span>
+                    <h2>Mon portefeuille</h2>
+                    <p>Consultez les informations relatives à votre portefeuille.</p>
+                </div>
+
+                <article class="client-panel client-wallet client-wallet-large">
+                    <span class="client-eyebrow">SOLDE DU PORTEFEUILLE</span>
+                    <h3>Solde disponible</h3>
+                    <div class="client-wallet-balance">
+                        <strong id="clientWalletBalanceDetails">—</strong>
+                        <span>FCFA</span>
+                    </div>
+                    <p>
+                        Les dépôts, paiements et retraits nécessitent une
+                        intégration sécurisée du prestataire de paiement.
+                    </p>
+                    <div class="client-actions">
+                        <button class="client-button client-button-light"
+                            data-section-link="transactions">
+                            Voir les transactions
+                        </button>
+                    </div>
+                </article>
+
+                <div class="client-note">
+                    <strong>Information importante</strong>
+                    <p>
+                        Aucun mouvement financier ne doit être considéré comme
+                        effectué tant qu'il n'a pas été confirmé par le système
+                        de paiement et enregistré côté serveur.
+                    </p>
+                </div>
+            </section>
+
+            <!-- TRANSACTIONS -->
+            <section class="client-section" id="client-transactions">
+                <div class="client-section-heading">
+                    <span class="client-eyebrow">FINANCES</span>
+                    <h2>Mes transactions</h2>
+                    <p>Consultez l'historique des mouvements financiers.</p>
+                </div>
+
+                <article class="client-panel">
+                    <div class="client-table-wrapper">
+                        <table class="client-table">
+                            <thead>
+                                <tr>
+                                    <th>Référence</th>
+                                    <th>Date</th>
+                                    <th>Type</th>
+                                    <th>Montant</th>
+                                    <th>Statut</th>
+                                </tr>
+                            </thead>
+                            <tbody id="clientTransactionsBody">
+                                <tr>
+                                    <td colspan="5" class="client-table-empty">
+                                        Aucune transaction affichée.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+            </section>
+
+            <!-- PROFIL -->
+            <section class="client-section" id="client-profil">
+                <div class="client-section-heading">
+                    <span class="client-eyebrow">INFORMATIONS PERSONNELLES</span>
+                    <h2>Mon profil</h2>
+                    <p>Consultez les informations de votre compte.</p>
+                </div>
+
+                <article class="client-panel client-profile-panel">
+                    <div class="client-profile-avatar">C</div>
+                    <div class="client-profile-info">
+                        <div class="client-profile-field">
+                            <span>Nom complet</span>
+                            <strong id="clientProfileName">Non renseigné</strong>
+                        </div>
+                        <div class="client-profile-field">
+                            <span>Adresse e-mail</span>
+                            <strong id="clientProfileEmail">Non renseignée</strong>
+                        </div>
+                        <div class="client-profile-field">
+                            <span>Téléphone</span>
+                            <strong id="clientProfilePhone">Non renseigné</strong>
+                        </div>
+                    </div>
+                    <p id="clientProfileMessage" class="client-profile-message">
+                        Les informations du profil seront affichées lorsqu'elles
+                        seront chargées depuis votre compte.
+                    </p>
+                </article>
+            </section>
+
+            <footer class="client-footer">
+                <span>© NEXORA</span>
+                <span>Votre espace, vos activités, en un seul endroit.</span>
+            </footer>
+
+        </div>
+    </main>
+</div>
+
+<script>
+"use strict";
+
+document.addEventListener("DOMContentLoaded", () => {
+    const sidebar = document.getElementById("clientSidebar");
+    const mobileToggle = document.getElementById("clientMobileToggle");
+    const menuItems = document.querySelectorAll("[data-section]");
+    const sectionLinks = document.querySelectorAll("[data-section-link]");
+    const sections = document.querySelectorAll(".client-section");
+    const pageTitle = document.getElementById("clientPageTitle");
+
+    const titles = {
+        dashboard: "Tableau de bord",
+        commandes: "Mes commandes",
+        billets: "Mes billets",
+        inscriptions: "Mes inscriptions",
+        votes: "Mes votes",
+        favoris: "Mes favoris",
+        portefeuille: "Mon portefeuille",
+        transactions: "Mes transactions",
+        profil: "Mon profil"
+    };
+
+    function showSection(sectionName) {
+        const target = document.getElementById("client-" + sectionName);
+        if (!target) return;
+
+        sections.forEach(section => {
+            section.classList.toggle("active", section === target);
+        });
+
+        menuItems.forEach(item => {
+            item.classList.toggle(
+                "active",
+                item.dataset.section === sectionName
+            );
+        });
+
+        if (pageTitle) {
+            pageTitle.textContent = titles[sectionName] || "Espace client";
+        }
+
+        sidebar.classList.remove("open");
+        mobileToggle.setAttribute("aria-expanded", "false");
+    }
+
+    menuItems.forEach(item => {
+        item.addEventListener("click", () => {
+            showSection(item.dataset.section);
+        });
+    });
+
+    sectionLinks.forEach(button => {
+        button.addEventListener("click", () => {
+            showSection(button.dataset.sectionLink);
+        });
+    });
+
+    mobileToggle.addEventListener("click", () => {
+        const isOpen = sidebar.classList.toggle("open");
+        mobileToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    document.addEventListener("click", event => {
+        if (
+            window.innerWidth <= 900 &&
+            sidebar.classList.contains("open") &&
+            !sidebar.contains(event.target) &&
+            !mobileToggle.contains(event.target)
+        ) {
+            sidebar.classList.remove("open");
+            mobileToggle.setAttribute("aria-expanded", "false");
+        }
+    });
+
+    console.log("NEXORA : espace client chargé.");
+});
+</script>
+
+<script src="js/client.js"></script>
+</body>
+</html>

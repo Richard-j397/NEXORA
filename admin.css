@@ -1,0 +1,960 @@
+/* ==========================================
+NEXORA — ADMINISTRATION CENTRALE
+Design premium : Bleu nuit, bleu royal et or
+========================================== */
+
+:root {
+--admin-navy: #0b1530;
+--admin-navy-light: #142344;
+--admin-blue: #2457d6;
+--admin-blue-light: #edf3ff;
+--admin-gold: #d4af37;
+--admin-gold-light: #f8f1d9;
+--admin-white: #ffffff;
+--admin-background: #f4f6fb;
+--admin-text: #1c2940;
+--admin-muted: #77839a;
+--admin-border: #e3e8f1;
+--admin-radius: 15px;
+--admin-shadow: 0 8px 28px rgba(11, 21, 48, 0.07);
+}
+
+/* Base */
+
+* {
+  box-sizing: border-box;
+  }
+
+html {
+scroll-behavior: smooth;
+}
+
+body {
+margin: 0;
+font-family: "Segoe UI", Arial, sans-serif;
+background: var(--admin-background);
+color: var(--admin-text);
+line-height: 1.6;
+}
+
+button,
+input,
+select,
+textarea {
+font: inherit;
+}
+
+button {
+cursor: pointer;
+}
+
+/* Structure principale */
+
+.admin-layout {
+display: flex;
+min-height: 100vh;
+background: var(--admin-background);
+}
+
+/* Navigation latérale */
+
+.admin-sidebar {
+width: 265px;
+min-width: 265px;
+min-height: 100vh;
+padding: 28px 18px;
+background: linear-gradient(
+180deg,
+var(--admin-navy) 0%,
+var(--admin-navy-light) 100%
+);
+color: var(--admin-white);
+box-shadow: 5px 0 25px rgba(11, 21, 48, 0.08);
+position: sticky;
+top: 0;
+height: 100vh;
+overflow-y: auto;
+z-index: 100;
+}
+
+.admin-logo {
+margin: 0 0 35px;
+padding: 0 12px 24px;
+border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+color: var(--admin-white);
+font-size: 25px;
+font-weight: 800;
+letter-spacing: 2px;
+}
+
+.admin-logo span {
+color: var(--admin-gold);
+}
+
+.admin-menu {
+display: flex;
+flex-direction: column;
+gap: 7px;
+}
+
+.admin-menu button,
+.admin-menu a,
+.admin-menu .admin-menu-link {
+display: flex;
+align-items: center;
+width: 100%;
+min-height: 45px;
+padding: 11px 14px;
+border: 1px solid transparent;
+border-radius: 10px;
+background: transparent;
+color: #d9e2f5;
+text-decoration: none;
+text-align: left;
+font-size: 14px;
+font-weight: 500;
+transition: background 0.2s ease, color 0.2s ease;
+}
+
+.admin-menu button:hover,
+.admin-menu a:hover,
+.admin-menu .admin-menu-link:hover {
+background: rgba(255, 255, 255, 0.08);
+color: var(--admin-white);
+}
+
+.admin-menu button.active,
+.admin-menu button[aria-current="page"] {
+background: linear-gradient(110deg, var(--admin-blue), #376ce7);
+color: var(--admin-white);
+border-color: rgba(255, 255, 255, 0.12);
+box-shadow: 0 5px 15px rgba(36, 87, 214, 0.28);
+}
+
+.admin-menu .admin-back-link {
+margin-top: 18px;
+border-top: 1px solid rgba(255, 255, 255, 0.12);
+border-radius: 0;
+padding-top: 20px;
+}
+
+/* Zone de travail */
+
+.admin-main {
+flex: 1;
+min-width: 0;
+}
+
+.admin-topbar {
+min-height: 78px;
+padding: 18px 32px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 20px;
+background: var(--admin-white);
+border-bottom: 1px solid var(--admin-border);
+box-shadow: 0 3px 15px rgba(11, 21, 48, 0.025);
+}
+
+.admin-topbar h1,
+.admin-topbar h2 {
+margin: 0;
+color: var(--admin-navy);
+font-size: 22px;
+font-weight: 750;
+}
+
+.admin-content {
+max-width: 1600px;
+margin: 0 auto;
+padding: 30px 32px 45px;
+}
+
+/* Titres et introductions */
+
+.admin-page-heading {
+margin: 0 0 8px;
+color: var(--admin-navy);
+font-size: 27px;
+font-weight: 800;
+letter-spacing: -0.5px;
+}
+
+.admin-section-intro {
+margin: 0 0 25px;
+color: var(--admin-muted);
+font-size: 14px;
+}
+
+/* Sections */
+
+.admin-section {
+display: none;
+animation: adminFadeIn 0.25s ease;
+}
+
+.admin-section.active {
+display: block;
+}
+
+@keyframes adminFadeIn {
+from {
+opacity: 0;
+transform: translateY(5px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+/* Cartes statistiques */
+
+.admin-stats {
+display: grid;
+grid-template-columns: repeat(4, minmax(0, 1fr));
+gap: 20px;
+margin: 25px 0 30px;
+}
+
+.admin-stat {
+position: relative;
+overflow: hidden;
+padding: 23px;
+background: var(--admin-white);
+border: 1px solid var(--admin-border);
+border-radius: var(--admin-radius);
+box-shadow: var(--admin-shadow);
+transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-stat:hover {
+transform: translateY(-3px);
+box-shadow: 0 12px 30px rgba(11, 21, 48, 0.1);
+}
+
+.admin-stat::before {
+content: "";
+position: absolute;
+top: 0;
+left: 0;
+width: 4px;
+height: 100%;
+background: var(--admin-blue);
+}
+
+.admin-stat:nth-child(2)::before {
+background: var(--admin-gold);
+}
+
+.admin-stat:nth-child(3)::before {
+background: #259b80;
+}
+
+.admin-stat:nth-child(4)::before {
+background: #e58b39;
+}
+
+.admin-stat h3 {
+margin: 0 0 12px;
+color: var(--admin-muted);
+font-size: 13px;
+font-weight: 600;
+}
+
+.admin-stat p {
+margin: 0;
+color: var(--admin-navy);
+font-size: 30px;
+font-weight: 800;
+line-height: 1.2;
+}
+
+/* Panneaux */
+
+.admin-panel {
+margin-bottom: 25px;
+padding: 25px;
+background: var(--admin-white);
+border: 1px solid var(--admin-border);
+border-radius: var(--admin-radius);
+box-shadow: var(--admin-shadow);
+}
+
+.admin-panel h2,
+.admin-panel h3 {
+margin-top: 0;
+color: var(--admin-navy);
+font-weight: 750;
+}
+
+.admin-panel h2 {
+margin-bottom: 18px;
+font-size: 19px;
+}
+
+.admin-panel h3 {
+font-size: 16px;
+}
+
+/* Espaces en attente de contenu */
+
+.admin-placeholder {
+padding: 35px 22px;
+border: 1px dashed #cbd5e5;
+border-radius: 12px;
+background: #f9faff;
+color: var(--admin-muted);
+text-align: center;
+}
+
+/* Portefeuille */
+
+.admin-wallet {
+padding: 30px;
+color: var(--admin-white);
+background: linear-gradient(125deg, #0b1530, #1d3974);
+border: 1px solid rgba(212, 175, 55, 0.5);
+border-radius: 18px;
+box-shadow: 0 12px 30px rgba(11, 21, 48, 0.15);
+}
+
+.admin-wallet h2,
+.admin-wallet h3 {
+color: var(--admin-white);
+}
+
+.admin-wallet .admin-wallet-label {
+color: #d8e1f5;
+font-size: 14px;
+}
+
+.admin-wallet .admin-wallet-amount {
+margin: 12px 0;
+color: var(--admin-gold);
+font-size: 34px;
+font-weight: 800;
+}
+
+/* Boutons */
+
+.admin-button {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+gap: 8px;
+min-height: 42px;
+padding: 10px 18px;
+border: 1px solid transparent;
+border-radius: 9px;
+background: var(--admin-blue);
+color: var(--admin-white);
+font-weight: 650;
+text-decoration: none;
+transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.admin-button:hover {
+background: #1946b6;
+transform: translateY(-1px);
+}
+
+.admin-button.secondary {
+background: var(--admin-white);
+color: var(--admin-navy);
+border-color: var(--admin-border);
+}
+
+.admin-button.secondary:hover {
+background: var(--admin-blue-light);
+border-color: #b9cbf7;
+}
+
+.admin-button.gold {
+background: var(--admin-gold);
+color: var(--admin-navy);
+}
+
+.admin-button.gold:hover {
+background: #c39d28;
+}
+
+/* Tableaux */
+
+.admin-table-wrapper {
+width: 100%;
+overflow-x: auto;
+border: 1px solid var(--admin-border);
+border-radius: 12px;
+background: var(--admin-white);
+}
+
+.admin-table {
+width: 100%;
+border-collapse: collapse;
+text-align: left;
+}
+
+.admin-table thead {
+background: #f0f4fb;
+}
+
+.admin-table th {
+padding: 15px 17px;
+color: var(--admin-navy);
+font-size: 12px;
+font-weight: 750;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+white-space: nowrap;
+}
+
+.admin-table td {
+padding: 15px 17px;
+border-top: 1px solid var(--admin-border);
+color: var(--admin-text);
+font-size: 14px;
+}
+
+.admin-table tbody tr:hover {
+background: #f8faff;
+}
+
+/* Statuts */
+
+.admin-status {
+display: inline-flex;
+align-items: center;
+padding: 5px 10px;
+border-radius: 30px;
+background: var(--admin-blue-light);
+color: var(--admin-blue);
+font-size: 12px;
+font-weight: 700;
+}
+
+.admin-status.success {
+background: #e7f7ef;
+color: #16794b;
+}
+
+.admin-status.warning {
+background: var(--admin-gold-light);
+color: #866715;
+}
+
+.admin-status.danger {
+background: #ffeded;
+color: #bd3030;
+}
+
+/* Alertes */
+
+.admin-alert {
+margin: 15px 0;
+padding: 14px 17px;
+border: 1px solid #d8e4ff;
+border-radius: 10px;
+background: var(--admin-blue-light);
+color: var(--admin-navy);
+}
+
+/* Formulaires */
+
+.admin-panel input,
+.admin-panel select,
+.admin-panel textarea {
+width: 100%;
+padding: 12px 14px;
+border: 1px solid #d7dfec;
+border-radius: 9px;
+background: var(--admin-white);
+color: var(--admin-text);
+outline: none;
+transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-panel input:focus,
+.admin-panel select:focus,
+.admin-panel textarea:focus {
+border-color: var(--admin-blue);
+box-shadow: 0 0 0 3px rgba(36, 87, 214, 0.1);
+}
+
+.admin-panel label {
+display: block;
+margin-bottom: 7px;
+color: var(--admin-navy);
+font-size: 13px;
+font-weight: 650;
+}
+
+/* Menu mobile */
+
+.admin-mobile-toggle {
+display: none;
+align-items: center;
+justify-content: center;
+width: 43px;
+height: 43px;
+border: 1px solid var(--admin-border);
+border-radius: 10px;
+background: var(--admin-white);
+color: var(--admin-navy);
+font-size: 22px;
+}
+
+.admin-mobile-heading {
+display: none;
+}
+
+/* Adaptation tablette */
+
+@media (max-width: 1100px) {
+.admin-stats {
+grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.admin-content {
+    padding: 25px 22px;
+}
+
+.admin-sidebar {
+    width: 240px;
+    min-width: 240px;
+}
+
+}
+
+/* Adaptation mobile */
+
+@media (max-width: 760px) {
+.admin-layout {
+display: block;
+}
+
+.admin-sidebar {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 265px;
+    min-width: 265px;
+    height: 100dvh;
+    transition: left 0.25s ease;
+}
+
+.admin-sidebar.open {
+    left: 0;
+}
+
+.admin-main {
+    width: 100%;
+}
+
+.admin-topbar {
+    min-height: 68px;
+    padding: 13px 16px;
+    gap: 12px;
+}
+
+.admin-topbar h1,
+.admin-topbar h2 {
+    font-size: 18px;
+}
+
+.admin-mobile-toggle {
+    display: inline-flex;
+    flex-shrink: 0;
+}
+
+.admin-mobile-heading {
+    display: block;
+    margin-bottom: 20px;
+    color: var(--admin-navy);
+    font-size: 23px;
+    font-weight: 800;
+}
+
+.admin-content {
+    padding: 20px 15px 30px;
+}
+
+.admin-page-heading {
+    font-size: 23px;
+}
+
+.admin-stats {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.admin-stat {
+    padding: 17px 14px;
+}
+
+.admin-stat h3 {
+    font-size: 12px;
+}
+
+.admin-stat p {
+    font-size: 24px;
+}
+
+.admin-panel {
+    padding: 18px 15px;
+}
+
+.admin-wallet {
+    padding: 22px 18px;
+}
+
+.admin-wallet .admin-wallet-amount {
+    font-size: 28px;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 12px;
+}
+
+}
+
+@media (max-width: 380px) {
+.admin-stats {
+grid-template-columns: 1fr;
+}
+}
+/* ==========================================
+NEXORA ADMIN — THÈME SOMBRE PREMIUM
+========================================== */
+
+:root {
+--admin-navy: #060c1b;
+--admin-navy-light: #0c1730;
+--admin-background: #080f20;
+--admin-text: #e8edf7;
+--admin-muted: #9ba9c2;
+--admin-border: #263653;
+--admin-white: #101b32;
+--admin-blue-light: #172b50;
+--admin-gold-light: #352d19;
+--admin-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Fond général */
+
+body,
+.admin-layout,
+.admin-main {
+background: #080f20 !important;
+color: #e8edf7;
+}
+
+/* Barre supérieure */
+
+.admin-topbar {
+background: #0c1730 !important;
+border-bottom: 1px solid #263653 !important;
+}
+
+.admin-topbar h1,
+.admin-topbar h2,
+.admin-page-heading,
+.admin-panel h2,
+.admin-panel h3 {
+color: #ffffff !important;
+}
+
+/* Cartes et panneaux */
+
+.admin-stat,
+.admin-panel,
+.admin-table-wrapper {
+background: #101b32 !important;
+border-color: #263653 !important;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+}
+
+.admin-stat h3,
+.admin-section-intro {
+color: #aab7cd !important;
+}
+
+.admin-stat p {
+color: #f2c95d !important;
+}
+
+/* Tableaux */
+
+.admin-table,
+.admin-table tbody {
+background: #101b32 !important;
+}
+
+.admin-table thead {
+background: #182744 !important;
+}
+
+.admin-table th {
+color: #e6c56b !important;
+border-color: #263653 !important;
+}
+
+.admin-table td {
+color: #e8edf7 !important;
+border-color: #263653 !important;
+}
+
+.admin-table tbody tr:hover {
+background: #192845 !important;
+}
+
+/* Formulaires */
+
+.admin-panel input,
+.admin-panel select,
+.admin-panel textarea {
+background: #0a1428 !important;
+color: #ffffff !important;
+border-color: #344563 !important;
+}
+
+.admin-panel label {
+color: #e8edf7 !important;
+}
+
+.admin-panel input::placeholder,
+.admin-panel textarea::placeholder {
+color: #8291ab;
+}
+
+/* Zones d'attente */
+
+.admin-placeholder {
+background: #0b162b !important;
+color: #aab7cd !important;
+border-color: #344563 !important;
+}
+
+/* Alertes et statuts */
+
+.admin-alert {
+background: #172746 !important;
+color: #e8edf7 !important;
+border-color: #344563 !important;
+}
+
+.admin-status {
+background: #1a3158 !important;
+color: #a9c5ff !important;
+}
+
+.admin-status.warning {
+background: #352d19 !important;
+color: #f2d77d !important;
+}
+
+/* Boutons secondaires */
+
+.admin-button.secondary {
+background: #172440 !important;
+color: #ffffff !important;
+border-color: #344563 !important;
+}
+
+.admin-button.secondary:hover {
+background: #223555 !important;
+}
+
+/* Menu de navigation */
+
+.admin-sidebar {
+background: linear-gradient(
+180deg,
+#050a16 0%,
+#0b1730 100%
+) !important;
+border-right: 1px solid #263653;
+}
+
+.admin-logo {
+color: #ffffff !important;
+}
+
+.admin-menu button,
+.admin-menu a,
+.admin-menu .admin-menu-link {
+color: #cbd5e7;
+}
+
+.admin-menu button.active,
+.admin-menu button[aria-current="page"] {
+background: linear-gradient(110deg, #1c46a5, #2457d6) !important;
+color: #ffffff !important;
+}
+
+.admin-mobile-toggle {
+background: #101b32 !important;
+color: #ffffff !important;
+border-color: #344563 !important;
+}
+/* ==========================================
+NEXORA ADMIN — THÈME OR PREMIUM
+========================================== */
+
+:root {
+--admin-gold: #d4af37;
+--admin-gold-light: #f5df91;
+--admin-gold-dark: #a98218;
+}
+
+/* Navigation et identité */
+
+.admin-logo span {
+color: var(--admin-gold-light) !important;
+}
+
+.admin-menu button.active,
+.admin-menu button[aria-current="page"] {
+background: linear-gradient(
+135deg,
+#a98218,
+#e2c45d,
+#b38b24
+) !important;
+color: #101b32 !important;
+border-color: #f5df91 !important;
+font-weight: 800;
+}
+
+/* Titres */
+
+.admin-page-heading,
+.admin-topbar h1,
+.admin-topbar h2 {
+color: var(--admin-gold-light) !important;
+}
+
+.admin-section-intro {
+color: #c3cbe0 !important;
+}
+
+/* Cartes statistiques */
+
+.admin-stat {
+border: 1px solid rgba(212, 175, 55, 0.45) !important;
+box-shadow: inset 0 1px 0 rgba(245, 223, 145, 0.08),
+0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.admin-stat::before {
+background: linear-gradient(
+180deg,
+#f5df91,
+#b38b24
+) !important;
+}
+
+.admin-stat h3 {
+color: #c4cce0 !important;
+}
+
+.admin-stat p {
+color: #f5df91 !important;
+}
+
+/* Panneaux */
+
+.admin-panel {
+border: 1px solid rgba(212, 175, 55, 0.3) !important;
+}
+
+.admin-panel h2,
+.admin-panel h3 {
+color: #f5df91 !important;
+}
+
+/* Bouton principal doré */
+
+.admin-button,
+.admin-button.gold {
+background: linear-gradient(
+135deg,
+#a98218,
+#f0d477,
+#c39b2b
+) !important;
+color: #101b32 !important;
+border: 1px solid #f5df91 !important;
+font-weight: 800;
+box-shadow: 0 5px 16px rgba(212, 175, 55, 0.16);
+}
+
+.admin-button:hover,
+.admin-button.gold:hover {
+background: linear-gradient(
+135deg,
+#f5df91,
+#d4af37
+) !important;
+transform: translateY(-2px);
+}
+
+/* Boutons secondaires */
+
+.admin-button.secondary {
+border-color: #9c7b23 !important;
+}
+
+/* Tableaux */
+
+.admin-table thead {
+background: #202943 !important;
+}
+
+.admin-table th {
+color: #f0d477 !important;
+border-bottom: 1px solid #9c7b23 !important;
+}
+
+/* Bordures dorées au survol */
+
+.admin-stat:hover,
+.admin-panel:hover {
+border-color: #d4af37 !important;
+}
+
+/* Portefeuille */
+
+.admin-wallet {
+background: linear-gradient(
+135deg,
+#080f20,
+#17233d
+) !important;
+border: 1px solid #d4af37 !important;
+}
+
+.admin-wallet .admin-wallet-amount {
+color: #f5df91 !important;
+}
+
+/* Alertes et statuts */
+
+.admin-status.warning {
+background: #352d19 !important;
+color: #f5df91 !important;
+border: 1px solid #8c7025;
+}
+
+.admin-alert {
+border-left: 4px solid #d4af37 !important;
+}
+
+/* Barre supérieure */
+
+.admin-topbar {
+border-bottom: 1px solid rgba(212, 175, 55, 0.4) !important;
+}
