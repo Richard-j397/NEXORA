@@ -30,6 +30,13 @@ const client = new Appwrite.Client()
 const tablesDB = new Appwrite.TablesDB(client);
 
 console.log("NEXORA Administration : interface chargée.");
+console.log("NEXORA — Vérification Appwrite");
+
+console.log("SDK Appwrite disponible :", typeof Appwrite !== "undefined");
+
+console.log("Identifiant du projet :", APPWRITE_PROJECT_ID);
+
+console.log("Identifiant de la base :", APPWRITE_DATABASE_ID);
 
 // ============================================
 // 3. CHARGEMENT DU TABLEAU DE BORD
