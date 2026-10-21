@@ -1,7 +1,7 @@
 // ============================================
- // NEXORA — ADMINISTRATION CENTRALE
- // Connexion à Appwrite et gestion des données
- // ============================================
+// NEXORA — ADMINISTRATION CENTRALE
+// Connexion à Appwrite et gestion des données
+// ============================================
 
 "use strict";
 
@@ -30,11 +30,11 @@ const client = new Appwrite.Client()
 const account = new Appwrite.Account(client);
 const tablesDB = new Appwrite.TablesDB(client);
 
-// Masquer le document pendant la vérification
+// Masquer l'interface pendant la vérification
 document.documentElement.style.visibility = "hidden";
 
 // ============================================
-// 3. VÉRIFICATION DE LA SESSION
+// 3. VÉRIFICATION DE LA SESSION ET DU LABEL
 // ============================================
 
 async function verifierConnexionAdmin() {
@@ -45,15 +45,45 @@ async function verifierConnexionAdmin() {
             throw new Error("Session utilisateur absente.");
         }
 
+        // Vérifier le label admin du compte Appwrite
+        const labels = utilisateur.labels || [];
+
+        if (!labels.includes("admin")) {
+            document.documentElement.style.visibility = "visible";
+
+            document.body.innerHTML = `
+                <main style="
+                    font-family: Arial, sans-serif;
+                    text-align: center;
+                    padding: 50px 20px;
+                ">
+                    <h1>Accès refusé</h1>
+                    <p>
+                        Cet espace est réservé aux administrateurs
+                        autorisés de NEXORA.
+                    </p>
+                    <a href="./login.html">Retour à la connexion</a>
+                </main>
+            `;
+
+            console.warn("NEXORA : label admin absent.");
+            return false;
+        }
+
         document.documentElement.style.visibility = "visible";
 
-        console.log("NEXORA : session Appwrite vérifiée.");
+        console.log("NEXORA : administrateur vérifié.");
         return true;
 
     } catch (erreur) {
-        console.warn("NEXORA : connexion requise.");
+        console.error(
+            "NEXORA — Erreur de vérification :",
+            erreur
+        );
 
+        document.documentElement.style.visibility = "visible";
         window.location.replace("./login.html");
+
         return false;
     }
 }
@@ -64,18 +94,20 @@ async function verifierConnexionAdmin() {
 
 document.addEventListener("DOMContentLoaded", async () => {
 
-    // Vérifier la session AVANT de charger les données
+    // Vérifier l'accès avant de charger les données
     const autorise = await verifierConnexionAdmin();
 
     if (!autorise) {
         return;
     }
 
-    console.log("NEXORA Administration : interface chargée.");
+    console.log(
+        "NEXORA Administration : interface chargée."
+    );
 
-    // ----------------------------------------
-    // COMPTEUR ET LISTE DES CLIENTS
-    // ----------------------------------------
+    // ========================================
+    // 5. COMPTEUR ET LISTE DES CLIENTS
+    // ========================================
 
     try {
         const response = await tablesDB.listRows({
@@ -83,7 +115,10 @@ document.addEventListener("DOMContentLoaded", async () => {
             tableId: APPWRITE_CLIENTS_TABLE_ID
         });
 
-        console.log("NEXORA — Nombre de clients :", response.total);
+        console.log(
+            "NEXORA — Nombre de clients :",
+            response.total
+        );
 
         const totalClients =
             document.getElementById("Total-clients");
@@ -114,7 +149,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     ["name", "email", "phone", "status"]
                         .forEach((champ) => {
-                            const cellule = document.createElement("td");
+                            const cellule =
+                                document.createElement("td");
 
                             cellule.textContent =
                                 client[champ] ?? "—";
@@ -128,7 +164,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
     } catch (erreur) {
-        console.error("NEXORA — Erreur Clients :", erreur);
+        console.error(
+            "NEXORA — Erreur Clients :",
+            erreur
+        );
 
         const listeClients =
             document.getElementById("liste-clients");
@@ -148,9 +187,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
-    // ----------------------------------------
-    // COMPTEUR DES PARTENAIRES
-    // ----------------------------------------
+    // ========================================
+    // 6. COMPTEUR DES PARTENAIRES
+    // ========================================
 
     try {
         const response = await tablesDB.listRows({
@@ -165,15 +204,21 @@ document.addEventListener("DOMContentLoaded", async () => {
             totalPartenaires.textContent = response.total;
         }
 
-        console.log("NEXORA — Partenaires :", response.total);
+        console.log(
+            "NEXORA — Partenaires :",
+            response.total
+        );
 
     } catch (erreur) {
-        console.error("NEXORA — Erreur Partenaires :", erreur);
+        console.error(
+            "NEXORA — Erreur Partenaires :",
+            erreur
+        );
     }
 
-    // ----------------------------------------
-    // COMPTEUR DES ÉVÉNEMENTS
-    // ----------------------------------------
+    // ========================================
+    // 7. COMPTEUR DES ÉVÉNEMENTS
+    // ========================================
 
     try {
         const response = await tablesDB.listRows({
@@ -188,15 +233,21 @@ document.addEventListener("DOMContentLoaded", async () => {
             totalEvenements.textContent = response.total;
         }
 
-        console.log("NEXORA — Événements :", response.total);
+        console.log(
+            "NEXORA — Événements :",
+            response.total
+        );
 
     } catch (erreur) {
-        console.error("NEXORA — Erreur Événements :", erreur);
+        console.error(
+            "NEXORA — Erreur Événements :",
+            erreur
+        );
     }
 
-    // ----------------------------------------
-    // COMPTEUR DES COMMANDES
-    // ----------------------------------------
+    // ========================================
+    // 8. COMPTEUR DES COMMANDES
+    // ========================================
 
     try {
         const response = await tablesDB.listRows({
@@ -211,10 +262,16 @@ document.addEventListener("DOMContentLoaded", async () => {
             totalCommandes.textContent = response.total;
         }
 
-        console.log("NEXORA — Commandes :", response.total);
+        console.log(
+            "NEXORA — Commandes :",
+            response.total
+        );
 
     } catch (erreur) {
-        console.error("NEXORA — Erreur Commandes :", erreur);
+        console.error(
+            "NEXORA — Erreur Commandes :",
+            erreur
+        );
     }
 
 });
